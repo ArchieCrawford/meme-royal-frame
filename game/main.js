@@ -136,6 +136,24 @@ class Game {
     this.updateElixirUI();
     this.updateCrownsUI();
     this.updateTimerUI();
+
+    // Hide legacy overlays so touch/click can reach the game on mobile
+    const blockers = [
+      'main-menu',
+      'matchmaking-screen',
+      'match-found-screen',
+      'upgrade-screen',
+      'deck-builder-screen',
+      'achievements-screen',
+      'name-modal',
+      'settings-modal'
+    ];
+    blockers.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    const battleUi = document.getElementById('battle-ui');
+    if (battleUi) battleUi.style.display = 'block';
   }
 
   bindEvents() {
