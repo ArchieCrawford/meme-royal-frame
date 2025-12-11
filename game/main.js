@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { CONFIG } from "./config.js";
 import { Unit3D } from "./Unit3D.js";
 import { Tower3D } from "./Tower3D.js";
