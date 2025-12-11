@@ -58,6 +58,8 @@ class Game {
     this.initUI();
     this.bindEvents();
 
+    this.cleanupBadMaterials();
+
     this.animate();
   }
 
@@ -162,6 +164,28 @@ class Game {
     window.addEventListener("resize", () => this.onResize());
     this.canvas.addEventListener("click", e => this.onCanvasClick(e));
     this.restartBtn.addEventListener("click", () => window.location.reload());
+  }
+
+  cleanupBadMaterials() {
+    this.scene.traverse(obj => {
+      if (!obj.material) return;
+
+      const materials = Array.isArray(obj.material) ? obj.material : [obj.material];
+
+      for (const mat of materials) {
+        if (!mat) continue;
+
+        if (mat.isMeshBasicMaterial && mat.emissive) {
+          delete mat.emissive;
+          delete mat.emissiveIntensity;
+        }
+
+        if (!mat.isMeshStandardMaterial && !mat.isMeshPhysicalMaterial && mat.emissive) {
+          delete mat.emissive;
+          delete mat.emissiveIntensity;
+        }
+      }
+    });
   }
 
   onResize() {
