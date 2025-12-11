@@ -39,7 +39,9 @@ export const CONFIG = {
       attackRange: 1.8,
       attackSpeedSec: 1.0,
       type: "melee",
-      image: "https://play.rosebud.ai/assets/doge-warrior.webp?AOyc"
+      image: "https://play.rosebud.ai/assets/doge-warrior.webp?AOyc",
+      modelUrl: "https://rosebud.ai/assets/Meshy_Merged_Animations.glb?tlcw",
+      modelScale: 1.0
     },
     "bitcoin-knight": {
       id: "bitcoin-knight",
@@ -51,7 +53,9 @@ export const CONFIG = {
       attackRange: 1.8,
       attackSpeedSec: 1.1,
       type: "melee",
-      image: "https://play.rosebud.ai/assets/bitcoin-knight.webp?3C2f"
+      image: "https://play.rosebud.ai/assets/bitcoin-knight.webp?3C2f",
+      modelUrl: "https://rosebud.ai/assets/Crypto_Knight_1210104327_texture.glb?r4sP",
+      modelScale: 1.3
     },
     "shiba-tank": {
       id: "shiba-tank",
@@ -63,7 +67,9 @@ export const CONFIG = {
       attackRange: 1.5,
       attackSpeedSec: 1.4,
       type: "tank",
-      image: "https://play.rosebud.ai/assets/shiba-tank.webp?qjWE"
+      image: "https://play.rosebud.ai/assets/shiba-tank.webp?qjWE",
+      modelUrl: "https://rosebud.ai/assets/Shiba_tank.glb?UrXG",
+      modelScale: 1.5
     },
     "ethereum-archer": {
       id: "ethereum-archer",
@@ -75,7 +81,9 @@ export const CONFIG = {
       attackRange: 6.5,
       attackSpeedSec: 1.0,
       type: "ranged",
-      image: "https://play.rosebud.ai/assets/ethereum-archer.webp?Jela"
+      image: "https://play.rosebud.ai/assets/ethereum-archer.webp?Jela",
+      modelUrl: "https://rosebud.ai/assets/Meshy_Merged_Animations.glb?1xom",
+      modelScale: 1.0
     },
     "laser-punk": {
       id: "laser-punk",
@@ -87,7 +95,9 @@ export const CONFIG = {
       attackRange: 6.5,
       attackSpeedSec: 0.9,
       type: "ranged",
-      image: "https://play.rosebud.ai/assets/laser-punk-card.webp?46vy"
+      image: "https://play.rosebud.ai/assets/laser-punk-card.webp?46vy",
+      modelUrl: "https://rosebud.ai/assets/Laser_punk.glb?Uei7",
+      modelScale: 1.2
     },
     "wojak-healer": {
       id: "wojak-healer",
@@ -99,7 +109,9 @@ export const CONFIG = {
       attackRange: 5.5,
       attackSpeedSec: 1.2,
       type: "ranged",
-      image: "https://play.rosebud.ai/assets/wojak-healer.webp?oUAQ"
+      image: "https://play.rosebud.ai/assets/wojak-healer.webp?oUAQ",
+      modelUrl: "https://rosebud.ai/assets/Meshy_Merged_Animations.glb?3zIS",
+      modelScale: 1.0
     },
     "pepe-mage": {
       id: "pepe-mage",

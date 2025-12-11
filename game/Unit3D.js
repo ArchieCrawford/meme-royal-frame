@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 export class Unit3D {
   constructor(scene, config, unitKey, isPlayer, spawnX, spawnZ) {
@@ -19,15 +20,8 @@ export class Unit3D {
     this.target = null;
     this.destroyed = false;
 
-    const bodyGeometry = new THREE.CapsuleGeometry(0.7, 1.2, 4, 8);
-    const color = isPlayer ? 0x4488ff : 0xff5555;
-    const bodyMaterial = new THREE.MeshStandardMaterial({ color });
-    const mesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    mesh.position.set(spawnX, 1.5, spawnZ);
-    this.mesh = mesh;
-    scene.add(mesh);
+    this.mixer = null;
+    this.loadModelOrFallback(spawnX, spawnZ);
 
     const hpBgGeom = new THREE.PlaneGeometry(2, 0.25);
     const hpBgMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide });
@@ -45,11 +39,104 @@ export class Unit3D {
     hpBg.add(hpBar);
   }
 
+  loadModelOrFallback(x, z) {
+    const { modelUrl, modelScale } = this.stats;
+    if (!modelUrl) {
+      this.createFallback(x, z);
+      return;
+    }
+
+    const loader = new GLTFLoader();
+    const tempGeom = new THREE.CapsuleGeometry(0.7, 1.2, 4, 8);
+    const tempMat = new THREE.MeshStandardMaterial({ color: this.isPlayer ? 0x4488ff : 0xff5555, transparent: true, opacity: 0.4 });
+    const placeholder = new THREE.Mesh(tempGeom, tempMat);
+    placeholder.castShadow = true;
+    placeholder.receiveShadow = true;
+    placeholder.position.set(x, 1.5, z);
+    this.mesh = placeholder;
+    this.scene.add(placeholder);
+
+    loader.load(
+      modelUrl,
+      (gltf) => {
+        this.scene.remove(placeholder);
+        tempGeom.dispose();
+        tempMat.dispose();
+
+        const model = gltf.scene;
+        model.position.set(x, 0, z);
+        const s = modelScale || 1.0;
+        model.scale.set(s, s, s);
+        model.rotation.y = this.isPlayer ? 0 : Math.PI;
+        model.traverse((child) => {
+          if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            if (child.material) {
+              child.material = child.material.clone();
+              if (this.isPlayer) child.material.color.setRGB(0.7, 0.85, 1.0);
+              else child.material.color.setRGB(1.0, 0.7, 0.7);
+            }
+          }
+        });
+        this.mesh = model;
+        this.scene.add(model);
+
+        if (gltf.animations && gltf.animations.length) {
+          this.mixer = new THREE.AnimationMixer(model);
+          const action = this.mixer.clipAction(gltf.animations[0]);
+          action.play();
+        }
+
+        this.attachHpBars();
+      },
+      undefined,
+      () => {
+        this.createFallback(x, z);
+      }
+    );
+  }
+
+  createFallback(x, z) {
+    const bodyGeometry = new THREE.CapsuleGeometry(0.7, 1.2, 4, 8);
+    const color = this.isPlayer ? 0x4488ff : 0xff5555;
+    const bodyMaterial = new THREE.MeshStandardMaterial({ color });
+    const mesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    mesh.position.set(x, 1.5, z);
+    this.mesh = mesh;
+    this.scene.add(mesh);
+    this.attachHpBars();
+  }
+
+  attachHpBars() {
+    if (!this.mesh) return;
+    const hpBgGeom = new THREE.PlaneGeometry(2, 0.25);
+    const hpBgMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide });
+    const hpBg = new THREE.Mesh(hpBgGeom, hpBgMat);
+    hpBg.position.set(0, 2.6, 0);
+    hpBg.rotation.x = -Math.PI / 2;
+    this.hpBarBg = hpBg;
+    this.mesh.add(hpBg);
+
+    const hpGeom = new THREE.PlaneGeometry(2, 0.22);
+    const hpMat = new THREE.MeshBasicMaterial({ color: this.isPlayer ? 0x33ff66 : 0xff3333, side: THREE.DoubleSide });
+    const hpBar = new THREE.Mesh(hpGeom, hpMat);
+    hpBar.position.set(0, 0.001, 0);
+    this.hpBar = hpBar;
+    hpBg.add(hpBar);
+  }
+
   update(deltaSec, enemyUnits, enemyTowers) {
     if (this.destroyed) return;
     if (this.hp <= 0) {
       this.destroy();
       return;
+    }
+
+    if (this.mixer) {
+      this.mixer.update(deltaSec);
     }
 
     this.attackCooldown = Math.max(0, this.attackCooldown - deltaSec);
