@@ -5,6 +5,114 @@
     <title>Meme Royal 3D • Frame</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
+    <style>
+      :root {
+        --bg-overlay: rgba(4, 6, 26, 0.85);
+        --accent-primary: #a855f7;
+        --accent-secondary: #22d3ee;
+        --text-main: #f9fafb;
+        --text-muted: #cbd5f5;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-main);
+        background-image:
+          linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+          url("meme-royal-neon-header.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        backdrop-filter: blur(10px);
+        background: rgba(7, 11, 40, 0.65);
+        border-radius: 1.5rem;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+        max-width: 540px;
+        width: 100%;
+      }
+
+      .hero-title {
+        font-size: 2.4rem;
+        letter-spacing: 0.04em;
+        margin-bottom: 1.1rem;
+        text-shadow: 0 0 18px rgba(56, 189, 248, 0.5);
+      }
+
+      .hero-subtitle {
+        font-size: 0.98rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+      }
+
+      .hero-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.9rem 2.4rem;
+        border-radius: 999px;
+        border: none;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        color: #0b1025;
+        background-image: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        box-shadow:
+          0 0 18px rgba(168, 85, 247, 0.7),
+          0 0 28px rgba(34, 211, 238, 0.55);
+        transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+      }
+
+      .hero-button:hover {
+        transform: translateY(-1px) scale(1.03);
+        filter: brightness(1.08);
+        box-shadow:
+          0 0 24px rgba(168, 85, 247, 0.9),
+          0 0 36px rgba(34, 211, 238, 0.75);
+      }
+
+      .hero-button:active {
+        transform: translateY(1px) scale(0.98);
+        box-shadow:
+          0 0 12px rgba(168, 85, 247, 0.7),
+          0 0 20px rgba(34, 211, 238, 0.5);
+      }
+
+      .hero-tagline {
+        margin-top: 1.1rem;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: rgba(209, 213, 255, 0.86);
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          padding: 2.4rem 1.4rem;
+          border-radius: 1.25rem;
+        }
+
+        .hero-title {
+          font-size: 1.9rem;
+        }
+      }
+    </style>
+
     <meta property="og:title" content="Meme Royal 3D" />
     <meta property="og:description" content="Clash Royale–style 3D meme arena. Drop troops, blow up towers, flex your bags." />
     <meta property="og:image" content="https://meme-royal-frame.vercel.app/og.png" />
@@ -15,16 +123,17 @@
     <meta name="fc:frame:button:1:action" content="link" />
     <meta name="fc:frame:button:1:target" content="https://meme-royal-frame.vercel.app/play.html" />
   </head>
-  <body style="margin:0;font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;background:#050816;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;">
-    <div style="text-align:center;padding:24px;max-width:480px;">
-      <h1 style="font-size:32px;margin-bottom:12px;">Meme Royal 3D</h1>
-      <p style="opacity:.8;margin-bottom:24px;">
-        Open this URL in a Farcaster client that supports Frames to play in-line,
-        or click below to launch the full 3D arena.
+  <body>
+    <main class="hero">
+      <h1 class="hero-title">Meme Royal 3D</h1>
+      <p class="hero-subtitle">
+        Launch your meme army straight from Farcaster Frames or jump into the full 3D arena in your browser.
+        Deploy troops, blow up towers, and climb the crypto ladder.
       </p>
-      <a href="/play.html" style="display:inline-block;padding:12px 24px;border-radius:999px;background:#7c3aed;color:#fff;text-decoration:none;font-weight:600;font-size:16px;">
+      <button class="hero-button" onclick="window.location.href='/play.html'">
         > Play Meme Royal 3D
-      </a>
-    </div>
+      </button>
+      <div class="hero-tagline">Neon citadel of the bonkhouse</div>
+    </main>
   </body>
 </html>
