@@ -1,1 +1,14 @@
-{}
+{
+	"builds": [
+		{ "src": "index.html", "use": "@vercel/static" },
+		{ "src": "play.html", "use": "@vercel/static" },
+		{ "src": "frame.html", "use": "@vercel/static" },
+		{ "src": "game/**", "use": "@vercel/static" },
+		{ "src": "assets/**", "use": "@vercel/static" },
+		{ "src": "public/**", "use": "@vercel/static" }
+	],
+	"routes": [
+		{ "src": "/play", "dest": "/play.html" },
+		{ "src": "/frame", "dest": "/frame.html" }
+	]
+}
