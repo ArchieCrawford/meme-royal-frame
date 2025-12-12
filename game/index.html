@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meme Royal 3D</title>
+    <title>Crypto Clash Royale 3D</title>
     <script type="importmap">
       {
         "imports": {
@@ -30,7 +30,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        pointer-events: none;
+        pointer-events: auto; /* ✅ FIX: allow UI clicks/taps */
       }
       #timer {
         position: absolute;
@@ -226,6 +226,7 @@
         align-items: center;
         justify-content: center;
         z-index: 100;
+        pointer-events: all;
       }
 
       .menu-container {
@@ -235,6 +236,7 @@
         border-radius: 20px;
         border: 2px solid #3498db;
         box-shadow: 0 0 40px rgba(52, 152, 219, 0.4);
+        pointer-events: all;
       }
 
       .game-title {
@@ -280,6 +282,7 @@
         cursor: pointer;
         transition: all 0.3s;
         box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        pointer-events: all;
       }
 
       .menu-btn:hover {
