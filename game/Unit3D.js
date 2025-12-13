@@ -22,21 +22,6 @@ export class Unit3D {
 
     this.mixer = null;
     this.loadModelOrFallback(spawnX, spawnZ);
-
-    const hpBgGeom = new THREE.PlaneGeometry(2, 0.25);
-    const hpBgMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide });
-    const hpBg = new THREE.Mesh(hpBgGeom, hpBgMat);
-    hpBg.position.set(0, 2.6, 0);
-    hpBg.rotation.x = -Math.PI / 2;
-    this.hpBarBg = hpBg;
-    mesh.add(hpBg);
-
-    const hpGeom = new THREE.PlaneGeometry(2, 0.22);
-    const hpMat = new THREE.MeshBasicMaterial({ color: isPlayer ? 0x33ff66 : 0xff3333, side: THREE.DoubleSide });
-    const hpBar = new THREE.Mesh(hpGeom, hpMat);
-    hpBar.position.set(0, 0.001, 0);
-    this.hpBar = hpBar;
-    hpBg.add(hpBar);
   }
 
   loadModelOrFallback(x, z) {

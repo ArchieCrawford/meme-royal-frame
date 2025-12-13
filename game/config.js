@@ -113,6 +113,20 @@ export const CONFIG = {
       modelUrl: "https://rosebud.ai/assets/Meshy_Merged_Animations.glb?3zIS",
       modelScale: 1.0
     },
+    "bonkhouse": {
+      id: "bonkhouse",
+      name: "Bonkhouse",
+      cost: 6,
+      maxHp: 1900,
+      damage: 140,
+      speed: 2.6,
+      attackRange: 2.2,
+      attackSpeedSec: 1.2,
+      type: "legendary",
+      image: "game/assets/bonkhouse-card.webp.webp",
+      modelUrl: "game/assets/Bonkhouse.glb",
+      modelScale: 1.3
+    },
     "pepe-mage": {
       id: "pepe-mage",
       name: "Pepe Mage",
